@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React Sample</title>
+</head>
+<body>
+  <!--描画のルート-->
+  <div id="react-container"></div>
+  <div id="root"></div>
+
+  <!--ReactとReactDom(両方とも開発版)-->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const data = [
+      {
+        name: "Baked Salmon",
+        ingredients: [
+          { name: "Salmon", amount: 1, measurement: "l lb" },
+          { name: "Pine Nuts", amount: 1, measurement:"cup" },
+          { name: "Butter Lettuce", amount: 2, measurement: "cups" }
+        ],
+        steps: [
+          "Preheat the oven to 350 degrees.",
+          "Spread the olive oil around a glass baking dish",
+          "Add the salmon, garlic, and pine nuts to the dish"
+        ],
+      },
+      {
+        name: "Fish Tacos",
+        ingredients: [
+          { name: "Whitefish", amount: 1, measurement: "l lb"},
+          { name: "Cheese", amount: 1, measurement: "cup" },
+          { name: "Iceberg Lettuce", amount: 2, measurement: "cups" }
+        ],
+        steps: [
+          "Cook thr fish on the grill until hot.",
+          "Please the fish on the 3 tortillas.",
+          "Top them with lettuce, tomatoes, and cheese",
+        ],
+      },
+    ];
+    const Recipe = ({ name, ingredients, steps }) => (
+      <section id={name.toLowerCase().replace(/ /g, "-")}>
+        <h1>{name}</h1>
+        <ul className="ingredients">
+          {ingredients.map((ingredient, i) => (
+            <li key={i}>{ingredient.name}</li>
+          ))}
+        </ul>
+        <section className="instructions">
+          <h2>Cooking Instructions</h2>
+          {steps.map((step, i) => (
+            <p key={i}>{step}</p>
+          ))}
+        </section>
+      </section>
+    );
+
+    const Menu = ({ title, recipes }) => (
+      <article>
+        <header>
+          <h1>{title}</h1>
+        </header>
+        <div className="recipes">
+          {recipes.map((recipe, i) => (
+            <Recipe key={i} {...recipe} />
+          ))}
+        </div>
+      </article>
+    );
+
+    function Cat({ name }) {
+      return (
+        <>
+        <h1>The cat's name is {name}</h1>
+        <p>He's good</p>
+        </>
+      );
+    }
+    ReactDOM.render(
+      //<Menu recipes={data} title="Delicious Recipes" />,
+      <Cat name="jungle" />,
+      //document.getElementById("react-container"));
+      document.getElementById("root"));
+  </script>
+</body>
+</html>
